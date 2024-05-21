@@ -16,4 +16,5 @@ public abstract class User {
     private String email;
     @Column(nullable = false)
     private String password;
+
 }
