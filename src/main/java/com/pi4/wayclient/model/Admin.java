@@ -10,10 +10,13 @@ import java.util.List;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 public class Admin extends User{
-    //TODO: replace String for Department
+    //TODO: replace String for Department when coded
+    //TODO: replace column for relationship when Department gets coded
     @Column
     private List<String> Departments;
-    //TODO: replace String for Activity
+
+    //TODO: replace String for Activity when coded
+    //TODO: replace column for relationship when Activity gets coded
     @Column
     private List<String> Activities;
 }

@@ -19,8 +19,7 @@ public class AdminService {
     }
 
     public Admin createAdmin(Admin admin) {
-        Admin newAdmin = adminRepository.save(admin);
-        return newAdmin;
+        return adminRepository.save(admin);
     }
 
     public List<Admin> retrieveAdmins() {
@@ -31,11 +30,27 @@ public class AdminService {
         return adminRepository.findById(id);
     }
 
-    public Admin updateAdmin(Admin admin) {
-        return adminRepository.save(admin);
+    public Admin updateAdmin(UUID id, Admin newAdmin) {
+        return adminRepository.findById(id)
+                .map(admin -> {
+                    admin.setName((newAdmin.getName() == null) ? admin.getName() : newAdmin.getName());
+                    admin.setEmail((newAdmin.getEmail() == null) ? admin.getEmail() : newAdmin.getEmail());
+                    admin.setPassword((newAdmin.getPassword() == null) ? admin.getPassword() : newAdmin.getPassword());
+                    admin.setDepartments((newAdmin.getDepartments() == null) ? admin.getDepartments() : newAdmin.getDepartments());
+                    admin.setActivities((newAdmin.getActivities() == null) ? admin.getActivities() : newAdmin.getActivities());
+                    return adminRepository.save(admin);
+                })
+                .orElseGet(() -> {
+                    return adminRepository.save(newAdmin);
+                });
     }
 
-    public void deleteAdmin(UUID id) {
-        adminRepository.deleteById(id);
+    public boolean deleteAdmin(UUID id) {
+        try {
+            adminRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

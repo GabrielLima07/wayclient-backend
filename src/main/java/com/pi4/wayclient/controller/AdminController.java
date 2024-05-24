@@ -33,14 +33,14 @@ public class AdminController {
         return adminService.retrieveAdminById(id);
     }
 
-    @PutMapping
-    public Admin put_admin(@RequestBody Admin admin) {
-        return adminService.updateAdmin(admin);
+    @PutMapping("/{id}")
+    public Admin put_admin(@PathVariable UUID id, @RequestBody Admin admin) {
+        return adminService.updateAdmin(id, admin);
     }
 
     @DeleteMapping("/{id}")
-    public void delete_admin(@PathVariable UUID id) {
-        adminService.deleteAdmin(id);
+    public boolean delete_admin(@PathVariable UUID id) {
+        return adminService.deleteAdmin(id);
     }
 
 }

@@ -1,7 +1,9 @@
 package com.pi4.wayclient.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,10 +14,10 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class Customer extends User {
 
-    @Column
+    @Column(nullable = false)
     private String phone;
-    @Column
-    private List<Ticket> tickets;
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Ticket> tickets;
 
 }

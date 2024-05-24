@@ -12,9 +12,13 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class  Employee extends User{
 
+    //TODO: replace String for Department when coded
+    //TODO: replace column for relationship when Department gets coded
     @Column
     private List<String> Departments;
 
+    //TODO: replace String for Activity when coded
+    //TODO: replace column for relationship when Activity gets coded
     @Column
     private List<String> Activities;
 
