@@ -16,8 +16,6 @@ public class Admin extends User{
             inverseJoinColumns = @JoinColumn(name = "department_id"))
     private List<Department> departments;
 
-    //TODO: replace String for Activity when coded
-    //TODO: replace column for relationship when Activity gets coded
-    @Column
-    private List<String> activities;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Activity> activities;
 }

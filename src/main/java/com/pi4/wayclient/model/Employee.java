@@ -17,10 +17,8 @@ public class Employee extends User {
     @JoinColumn(name = "department_id")
     private Department department;
 
-    //TODO: replace String for Activity when coded
-    //TODO: replace column for relationship when Activity gets coded
-    @Column
-    private List<String> activities;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Activity> activities;
 
     @Column
     private String role;
