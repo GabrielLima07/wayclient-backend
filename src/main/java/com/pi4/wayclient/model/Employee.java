@@ -12,15 +12,15 @@ import java.util.List;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class  Employee extends User{
+public class Employee extends User {
     @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
-    private List<Department> Departments;
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     //TODO: replace String for Activity when coded
     //TODO: replace column for relationship when Activity gets coded
     @Column
-    private List<String> Activities;
+    private List<String> activities;
 
     @Column
     private String role;

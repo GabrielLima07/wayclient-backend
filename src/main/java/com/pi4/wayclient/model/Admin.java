@@ -1,9 +1,6 @@
 package com.pi4.wayclient.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import java.util.List;
@@ -12,12 +9,15 @@ import java.util.List;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 public class Admin extends User{
-    @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
-    private List<Department> Departments;
+    @ManyToMany
+    @JoinTable(
+            name = "admin_department",
+            joinColumns = @JoinColumn(name = "admin_id"),
+            inverseJoinColumns = @JoinColumn(name = "department_id"))
+    private List<Department> departments;
 
     //TODO: replace String for Activity when coded
     //TODO: replace column for relationship when Activity gets coded
     @Column
-    private List<String> Activities;
+    private List<String> activities;
 }
