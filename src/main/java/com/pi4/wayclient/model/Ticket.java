@@ -1,20 +1,26 @@
 package com.pi4.wayclient.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-
+import jakarta.persistence.*;
+import lombok.Data;
 import java.util.UUID;
 
+@Data
 @Entity
 public class Ticket {
-
-    @Column
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
-   @Column
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "ticket_type_id", referencedColumnName = "id")
     private Ticket_type ticketType;
-   @Column
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "ticket_detail_id", referencedColumnName = "id")
     private Ticket_Detail ticketDetail;
 
 }
