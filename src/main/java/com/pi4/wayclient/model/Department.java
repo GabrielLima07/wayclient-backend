@@ -2,8 +2,6 @@ package com.pi4.wayclient.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,13 +15,13 @@ public class Department {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "departament")
+    @OneToMany(mappedBy = "department")
     private List<Employee> employees;
 
-    @OneToMany(mappedBy = "departament")
+    @ManyToMany(mappedBy = "departments")
     private List<Admin> admins;
 
-    @OneToOne(mappedBy = "departament", cascade = CascadeType.ALL)
-    private Ticket_type tickets_type;
+    @OneToOne(mappedBy = "department", cascade = CascadeType.ALL)
+    private Ticket_type ticket_type;
 
 }
