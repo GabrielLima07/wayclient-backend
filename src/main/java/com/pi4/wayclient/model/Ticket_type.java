@@ -18,8 +18,8 @@ public class Ticket_type {
     @Column
     private String description;
 
-    //TODO: replace String for Department when coded
-    //TODO: replace column for relationship when Department gets coded
-    @Column
-    private String department;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true )
+    @JoinColumn(name = "department_id",referencedColumnName = "id")
+    private Department department;
 }

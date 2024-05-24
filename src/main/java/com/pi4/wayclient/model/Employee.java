@@ -2,6 +2,8 @@ package com.pi4.wayclient.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -11,11 +13,9 @@ import java.util.List;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 public class  Employee extends User{
-
-    //TODO: replace String for Department when coded
-    //TODO: replace column for relationship when Department gets coded
-    @Column
-    private List<String> Departments;
+    @ManyToOne
+    @JoinColumn(name = "employee_id", nullable = false)
+    private List<Department> Departments;
 
     //TODO: replace String for Activity when coded
     //TODO: replace column for relationship when Activity gets coded
