@@ -1,3 +1,11 @@
+package com.pi4.wayclient.model;
+
+import com.pi4.wayclient.model.User;
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.util.UUID;
+
 @Data
 @Entity
 public class Activity {

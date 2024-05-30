@@ -1,13 +1,11 @@
 package com.pi4.wayclient.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Entity
@@ -22,4 +20,5 @@ public class Employee extends User {
 
     @Column
     private String role;
+
 }
