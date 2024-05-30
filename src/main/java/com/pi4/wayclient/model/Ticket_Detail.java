@@ -17,10 +17,11 @@ public class Ticket_Detail {
     @OneToOne(mappedBy = "ticketDetail")
     private Ticket ticket;
 
+
     //TODO: replace column for relationship when Product gets coded
     //TODO: replace String for Product when coded
-    @Column
-    private String product;
+    @OneToOne(mappedBy = "ticketDetail")
+    private Product product;
 
     //TODO: replace String for Service when coded
     //TODO: replace column for relationship when Service gets coded
