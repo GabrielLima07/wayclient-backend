@@ -1,6 +1,5 @@
 package com.pi4.wayclient.model;
 
-import com.pi4.wayclient.model.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,7 +14,7 @@ public class Activity {
 
     @ManyToOne
     @JoinColumn(name = "id_user", referencedColumnName = "id")
-    private User user;
+    private UserEntity user;
 
     @Column
     private String description;

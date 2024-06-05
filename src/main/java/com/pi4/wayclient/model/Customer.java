@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class Customer extends User {
+public class Customer extends UserEntity {
 
     @Column(nullable = false)
     private String phone;
