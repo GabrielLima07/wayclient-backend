@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class Admin extends User{
+public class Admin extends UserEntity{
     @ManyToMany
     @JoinTable(
             name = "admin_department",
@@ -16,6 +16,4 @@ public class Admin extends User{
             inverseJoinColumns = @JoinColumn(name = "department_id"))
     private List<Department> departments;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Activity> activities;
 }

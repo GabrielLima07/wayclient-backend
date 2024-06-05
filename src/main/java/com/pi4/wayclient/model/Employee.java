@@ -10,14 +10,10 @@ import java.util.UUID;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class Employee extends User {
+public class Employee extends UserEntity {
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Activity> activities;
-
     @Column
     private String role;
 
