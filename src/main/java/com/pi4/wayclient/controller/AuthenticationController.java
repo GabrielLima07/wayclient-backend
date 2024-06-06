@@ -1,8 +1,6 @@
 package com.pi4.wayclient.controller;
 
-import com.pi4.wayclient.dto.AuthenticationDTO;
-import com.pi4.wayclient.dto.LoginResponseDTO;
-import com.pi4.wayclient.dto.SignUpDTO;
+import com.pi4.wayclient.dto.*;
 import com.pi4.wayclient.model.*;
 import com.pi4.wayclient.repository.AdminRepository;
 import com.pi4.wayclient.repository.CustomerRepository;
@@ -46,22 +44,38 @@ public class AuthenticationController {
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/signup_admin")
     public ResponseEntity signUp(@RequestBody @Valid SignUpDTO data) {
         if(userRepository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
 
-        if (data.role() == UserRole.ADMIN) {
-            Admin newAdmin = new Admin(data.email(), data.name(), encryptedPassword, data.role());
-            this.adminRepository.save(newAdmin);
-        } else if (data.role() == UserRole.EMPLOYEE) {
-            Employee newEmployee = new Employee(data.email(), data.name(), encryptedPassword, data.role());
-            this.employeeRepository.save(newEmployee);
-        } else {
-            Customer newCustomer = new Customer(data.email(), data.name(), encryptedPassword, data.role());
-            this.customerRepository.save(newCustomer);
-        }
+        Admin newAdmin = new Admin(data.email(), data.name(), encryptedPassword, data.role());
+        this.adminRepository.save(newAdmin);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("signup_customer")
+    public ResponseEntity signUp(@RequestBody @Valid SignUpCustomerDTO data) {
+        if(userRepository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
+
+        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
+
+        Customer newCustomer = new Customer(data.email(), data.name(), encryptedPassword, data.role(), data.phone());
+        this.customerRepository.save(newCustomer);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("signup_employee")
+    public ResponseEntity signUp(@RequestBody @Valid SignUpEmployeeDTO data) {
+        if(userRepository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
+
+        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
+
+        Employee newEmployee = new Employee(data.email(), data.name(), encryptedPassword, data.role(), data.department(), data.position());
+        this.employeeRepository.save(newEmployee);
 
         return ResponseEntity.ok().build();
     }

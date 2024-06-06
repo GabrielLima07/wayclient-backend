@@ -1,5 +1,6 @@
 package com.pi4.wayclient.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,12 +17,15 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = true)
 public class Employee extends User {
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "department_id")
     private Department department;
     @Column
     private String position;
 
-    public Employee(String email, String name, String password, UserRole role) {
+    public Employee(String email, String name, String password, UserRole role, Department department, String position) {
         super(email, name, password, role);
+        this.department = department;
+        this.position = position;
     }
 }

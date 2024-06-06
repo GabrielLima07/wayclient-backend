@@ -3,8 +3,9 @@ package com.pi4.wayclient.controller;
 import com.pi4.wayclient.model.Ticket;
 import com.pi4.wayclient.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,27 +21,36 @@ public class TicketController {
     }
 
     @PostMapping
-    public Ticket postTicket(@RequestBody Ticket ticket) {
-        return ticketService.createTicket(ticket);
+    public ResponseEntity<Ticket> postTicket(@RequestBody Ticket ticket) {
+        Ticket newTicket = ticketService.createTicket(ticket);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newTicket);
     }
 
     @GetMapping
-    public List<Ticket> getTicket() {
-        return ticketService.retrieveTickets();
+    public ResponseEntity<List<Ticket>> getTicket() {
+        List<Ticket> ticketList = ticketService.retrieveTickets();
+        return ResponseEntity.status(HttpStatus.OK).body(ticketList);
     }
 
     @GetMapping("/{id}")
-    public Optional<Ticket> getTicket(@PathVariable UUID id) {
-        return ticketService.retrieveTicketById(id);
+    public ResponseEntity<Optional<Ticket>> getTicket(@PathVariable UUID id) {
+        Optional<Ticket> ticket = ticketService.retrieveTicketById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(ticket);
     }
 
     @PutMapping("/{id}")
-    public Ticket putTicket(@PathVariable UUID id, @RequestBody Ticket ticket) {
-        return ticketService.updateTicket(id, ticket);
+    public ResponseEntity<Ticket> putTicket(@PathVariable UUID id, @RequestBody Ticket ticket) {
+        Ticket updatedTicket = ticketService.updateTicket(id, ticket);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedTicket);
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteTicket(@PathVariable UUID id) {
-        return ticketService.deleteTicket(id);
+    public ResponseEntity<Void> deleteTicket(@PathVariable UUID id) {
+        boolean deleted = ticketService.deleteTicket(id);
+        if (deleted) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }

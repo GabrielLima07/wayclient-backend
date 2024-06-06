@@ -1,5 +1,6 @@
 package com.pi4.wayclient.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class Activity {
     private UUID id;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_user", referencedColumnName = "id")
     private User user;
 
