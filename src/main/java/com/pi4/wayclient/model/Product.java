@@ -1,12 +1,16 @@
 package com.pi4.wayclient.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -21,5 +25,5 @@ public class Product {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "ticket_detail_id", referencedColumnName = "id")
-    private Ticket_Detail ticketDetail;
+    private TicketDetail ticketDetail;
 }

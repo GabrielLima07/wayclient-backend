@@ -1,14 +1,19 @@
 package com.pi4.wayclient.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Admin extends UserEntity{
+public class Admin extends User{
     @ManyToMany
     @JoinTable(
             name = "admin_department",
