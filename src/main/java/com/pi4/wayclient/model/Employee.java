@@ -20,4 +20,8 @@ public class Employee extends User {
     private Department department;
     @Column
     private String position;
+
+    public Employee(String email, String name, String password, UserRole role) {
+        super(email, name, password, role);
+    }
 }

@@ -21,4 +21,7 @@ public class Admin extends User{
             inverseJoinColumns = @JoinColumn(name = "department_id"))
     private List<Department> departments;
 
+    public Admin(String email, String name, String password, UserRole role) {
+        super(email, name, password, role);
+    }
 }

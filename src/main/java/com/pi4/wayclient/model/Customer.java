@@ -24,4 +24,7 @@ public class Customer extends User {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Ticket> tickets;
 
+    public Customer(String email, String name, String password, UserRole role) {
+        super(email, name, password, role);
+    }
 }
