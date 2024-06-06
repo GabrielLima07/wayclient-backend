@@ -3,6 +3,8 @@ package com.pi4.wayclient.controller;
 import com.pi4.wayclient.model.Admin;
 import com.pi4.wayclient.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
@@ -19,28 +21,36 @@ public class AdminController {
     }
 
     @PostMapping
-    public Admin post_admin(@RequestBody Admin admin) {
-        return adminService.createAdmin(admin);
+    public ResponseEntity<Admin> post_admin(@RequestBody Admin admin) {
+        Admin newAdmin = adminService.createAdmin(admin);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newAdmin);
     }
 
     @GetMapping
-    public List<Admin> get_admin() {
-        return adminService.retrieveAdmins();
+    public ResponseEntity<List<Admin>> get_admin() {
+        List<Admin> adminList = adminService.retrieveAdmins();
+        return ResponseEntity.status(HttpStatus.OK).body(adminList);
     }
 
     @GetMapping("/{id}")
-    public Optional<Admin> get_admin(@PathVariable UUID id) {
-        return adminService.retrieveAdminById(id);
+    public ResponseEntity<Optional<Admin>> get_admin(@PathVariable UUID id) {
+        Optional<Admin> admin = adminService.retrieveAdminById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(admin);
     }
 
     @PutMapping("/{id}")
-    public Admin put_admin(@PathVariable UUID id, @RequestBody Admin admin) {
-        return adminService.updateAdmin(id, admin);
+    public ResponseEntity<Admin> put_admin(@PathVariable UUID id, @RequestBody Admin admin) {
+        Admin updatedAdmin = adminService.updateAdmin(id, admin);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedAdmin);
     }
 
     @DeleteMapping("/{id}")
-    public boolean delete_admin(@PathVariable UUID id) {
-        return adminService.deleteAdmin(id);
+    public ResponseEntity<Void> deleteAdmin(@PathVariable UUID id) {
+        boolean deleted = adminService.deleteAdmin(id);
+        if (deleted) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
-
 }
