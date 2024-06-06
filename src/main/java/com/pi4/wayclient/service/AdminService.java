@@ -40,9 +40,7 @@ public class AdminService {
                     admin.setActivities((newAdmin.getActivities() == null) ? admin.getActivities() : newAdmin.getActivities());
                     return adminRepository.save(admin);
                 })
-                .orElseGet(() -> {
-                    return adminRepository.save(newAdmin);
-                });
+                .orElseGet(() -> adminRepository.save(newAdmin));
     }
 
     public boolean deleteAdmin(UUID id) {

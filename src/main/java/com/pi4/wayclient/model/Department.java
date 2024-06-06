@@ -1,12 +1,17 @@
 package com.pi4.wayclient.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 import java.util.UUID;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -22,6 +27,6 @@ public class Department {
     private List<Admin> admins;
 
     @OneToOne(mappedBy = "department", cascade = CascadeType.ALL)
-    private Ticket_type ticket_type;
+    private TicketType ticket_type;
 
 }

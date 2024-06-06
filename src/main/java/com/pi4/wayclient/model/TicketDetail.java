@@ -2,14 +2,18 @@ package com.pi4.wayclient.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Data
 @Entity
-public class Ticket_Detail {
+@NoArgsConstructor
+@AllArgsConstructor
+public class TicketDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -17,9 +21,6 @@ public class Ticket_Detail {
     @OneToOne(mappedBy = "ticketDetail")
     private Ticket ticket;
 
-
-    //TODO: replace column for relationship when Product gets coded
-    //TODO: replace String for Product when coded
     @OneToOne(mappedBy = "ticketDetail")
     private Product product;
 
