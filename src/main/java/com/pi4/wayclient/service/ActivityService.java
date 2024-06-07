@@ -34,7 +34,7 @@ public class ActivityService {
         return activityRepository.findById(id)
         .map(activity -> {
             activity.setDescription((newActivity.getDescription() == null) ? activity.getDescription() : newActivity.getDescription());
-            activity.setEmployee((newActivity.getEmployee() == null) ? activity.getEmployee() : newActivity.getEmployee());
+            activity.setUser((newActivity.getUser() == null) ? activity.getUser() : newActivity.getUser());
             return activityRepository.save(activity);
         })
         .orElseGet(() -> activityRepository.save(newActivity));
