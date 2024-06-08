@@ -39,7 +39,7 @@ public class CustomerController {
 
     @PutMapping("/{id}")
     public Customer putCustomer(@PathVariable UUID id, @RequestBody Customer customer) {
-        return customerService.updateCustomer(customer);
+        return customerService.updateCustomer(id, customer);
     }
     @DeleteMapping("/{id}")
     public String deleteCustomer(@PathVariable UUID id) {

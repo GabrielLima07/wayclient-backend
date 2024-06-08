@@ -30,9 +30,29 @@ public class EmployeeService {
         return employeeRepository.findById(id);
     }
 
-    public Employee updateEmployee(Employee employee) {
-        return employeeRepository.save(employee);
+    public Employee updateEmployee(UUID id, Employee newEmployee) {
+        return employeeRepository.findById(id)
+                .map(employee -> {
+                    if (newEmployee.getName() != null) {
+                        employee.setName(newEmployee.getName());
+                    }
+                    if (newEmployee.getEmail() != null) {
+                        employee.setEmail(newEmployee.getEmail());
+                    }
+                    if (newEmployee.getPassword() != null) {
+                        employee.setPassword(newEmployee.getPassword());
+                    }
+                    if (newEmployee.getDepartment() != null) {
+                        employee.setDepartment(newEmployee.getDepartment());
+                    }
+                    if (newEmployee.getPosition() != null) {
+                        employee.setPosition(newEmployee.getPosition());
+                    }
+                    return employeeRepository.save(employee);
+                })
+                .orElseGet(() -> employeeRepository.save(newEmployee));
     }
+
 
     public void deleteEmployee(UUID id) {
         employeeRepository.deleteById(id);
