@@ -21,6 +21,7 @@ import java.net.http.HttpRequest;
 public class SecurityConfig {
     @Autowired
     SecurityFilter securityFilter;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
