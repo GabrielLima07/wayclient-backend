@@ -1,20 +1,27 @@
-FROM maven:3.9.6-eclipse-temurin-21-jammy as build
-WORKDIR /app
-COPY . .
-RUN mvn clean package -X -DskipTests
+FROM maven:3.8.4-openjdk-17 AS build
 
-FROM openjdk:17-jdk
 WORKDIR /app
 
-COPY --from=build /app/target/*.jar /app/wayclient-backend-0.0.1-SNAPSHOT.jar
+COPY pom.xml .
+COPY src ./src
+
+RUN mvn clean package -DskipTests
+
+FROM openjdk:17-jdk-alpine
+
+COPY --from=build /app/target/wayclient-backend-0.0.1-SNAPSHOT.jar app.jar
 
 ARG DB_URL
 ARG DB_USERNAME
 ARG DB_PASSWORD
-ENV ENV_DB_URL=${DB_URL}
-ENV ENV_DB_USERNAME=${DB_USERNAME}
-ENV ENV_DB_PASSWORD=${DB_PASSWORD}
 
-EXPOSE 8080
+ENV SPRING_DATASOURCE_URL=${DB_URL}
+ENV SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
+ENV SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
 
-ENTRYPOINT ["java", "-jar", "wayclient-backend-0.0.1-SNAPSHOT.jar"]
+RUN addgroup -S app && adduser -S app -G app
+
+USER app
+
+
+ENTRYPOINT ["java", "-jar", "/app.jar"]
