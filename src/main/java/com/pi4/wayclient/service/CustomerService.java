@@ -34,9 +34,29 @@ public class CustomerService {
         return customerRepository.findById(id);
     }
 
-    public Customer updateCustomer(Customer customer) {
-        return customerRepository.save(customer);
+    public Customer updateCustomer(UUID id, Customer newCustomer) {
+        return customerRepository.findById(id)
+                .map(customer -> {
+                    if (newCustomer.getName() != null) {
+                        customer.setName(newCustomer.getName());
+                    }
+                    if (newCustomer.getEmail() != null) {
+                        customer.setEmail(newCustomer.getEmail());
+                    }
+                    if (newCustomer.getPassword() != null) {
+                        customer.setPassword(newCustomer.getPassword());
+                    }
+                    if (newCustomer.getPhone() != null) {
+                        customer.setPhone(newCustomer.getPhone());
+                    }
+                    if (newCustomer.getTickets() != null) {
+                        customer.setTickets(newCustomer.getTickets());
+                    }
+                    return customerRepository.save(customer);
+                })
+                .orElseGet(() -> customerRepository.save(newCustomer));
     }
+
 
     public void deleteCustomer(UUID id) {
         customerRepository.deleteById(id);

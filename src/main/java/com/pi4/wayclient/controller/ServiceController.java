@@ -20,7 +20,7 @@ public class ServiceController {
     }
 
     @PostMapping
-    public ResponseEntity<ServiceEntity> postService(ServiceEntity serviceEntity) {
+    public ResponseEntity<ServiceEntity> postService(@RequestBody ServiceEntity serviceEntity) {
         ServiceEntity newService = serviceService.createService(serviceEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body(newService);
     }
